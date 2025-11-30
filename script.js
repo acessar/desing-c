@@ -42,146 +42,15 @@ window.addEventListener('scroll', function() {
     }
 });
 
-// --- 4. MODAL E FORMULÁRIO ---
-function openModal() {
-    const modal = document.getElementById('formModal');
-    if (modal) {
-        modal.classList.add('show');
-        document.body.style.overflow = 'hidden';
+// --- 4. SCROLL PARA FORMULÁRIO HUBSPOT ---
+function scrollToHubSpotForm() {
+    const hubspotForm = document.getElementById('hubspot-form-container');
+    if (hubspotForm) {
+        hubspotForm.scrollIntoView({
+            behavior: 'smooth',
+            block: 'center'
+        });
     }
-}
-
-function closeModal() {
-    const modal = document.getElementById('formModal');
-    if (modal) {
-        modal.classList.remove('show');
-        document.body.style.overflow = 'auto';
-        
-        // Resetar formulário
-        const form = document.getElementById('whatsappForm');
-        if (form) form.reset();
-        
-        // Resetar mensagens e botões
-        const successMsg = document.getElementById('successMessage');
-        if (successMsg) successMsg.classList.remove('show');
-        
-        const submitButton = document.querySelector('.submit-button');
-        if (submitButton) {
-            submitButton.classList.remove('loading');
-            submitButton.disabled = false;
-        }
-    }
-}
-
-// Fechar modal ao clicar fora (Overlay)
-const modalOverlay = document.getElementById('formModal');
-if (modalOverlay) {
-    modalOverlay.addEventListener('click', function(e) {
-        if (e.target === this) {
-            closeModal();
-        }
-    });
-}
-
-// Fechar modal com tecla ESC
-document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') {
-        closeModal();
-    }
-});
-
-// --- 5. MÁSCARA E VALIDAÇÃO DE TELEFONE ---
-const inputTelefone = document.getElementById('telefone');
-if (inputTelefone) {
-    inputTelefone.addEventListener('input', function(e) {
-        let value = e.target.value.replace(/\D/g, '');
-        let formattedValue = '';
-        
-        if (value.length > 0) {
-            formattedValue = '(' + value.substring(0, 2);
-        }
-        if (value.length > 2) {
-            formattedValue += ') ' + value.substring(2, 7);
-        }
-        if (value.length > 7) {
-            formattedValue += '-' + value.substring(7, 11);
-        }
-        
-        e.target.value = formattedValue;
-    });
-}
-
-function isValidPhone(phone) {
-    const cleanPhone = phone.replace(/\D/g, '');
-    return cleanPhone.length >= 10;
-}
-
-// --- 6. ENVIO PARA WHATSAPP ---
-const formWhatsapp = document.getElementById('whatsappForm');
-if (formWhatsapp) {
-    formWhatsapp.addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        const submitButton = document.querySelector('.submit-button');
-        submitButton.classList.add('loading');
-        submitButton.disabled = true;
-        
-        // Coletar dados
-        const nome = document.getElementById('nome').value.trim();
-        const telefone = document.getElementById('telefone').value.trim();
-        const endereco = document.getElementById('endereco').value.trim();
-        const tamanho = document.getElementById('tamanho').value;
-        const mensagem = document.getElementById('mensagem').value.trim();
-        
-        // Validações
-        if (!nome || !telefone) {
-            alert('Por favor, preencha seu nome e telefone.');
-            submitButton.classList.remove('loading');
-            submitButton.disabled = false;
-            return;
-        }
-        
-        if (!isValidPhone(telefone)) {
-            alert('Por favor, digite um telefone válido.');
-            submitButton.classList.remove('loading');
-            submitButton.disabled = false;
-            return;
-        }
-        
-        // Montar mensagem
-        let whatsappMessage = `👔 *Style Men - Interesse em Nossos Produtos*\n\n`;
-        whatsappMessage += `👤 *Nome:* ${nome}\n`;
-        whatsappMessage += `📱 *Telefone:* ${telefone}\n`;
-        
-        if (endereco) whatsappMessage += `📍 *Endereço:* ${endereco}\n`;
-        if (tamanho) whatsappMessage += `👕 *Categoria:* ${tamanho}\n`;
-        if (mensagem) whatsappMessage += `💬 *Detalhes:* ${mensagem}\n`;
-        
-        whatsappMessage += `\n_Gostaria de conhecer nossos produtos e receber ofertas! 🛍️_`;
-        
-        const whatsappNumber = '5583991816152'; // Seu número
-        
-        // Processar e redirecionar
-        setTimeout(() => {
-            const successMsg = document.getElementById('successMessage');
-            if (successMsg) successMsg.classList.add('show');
-            
-            setTimeout(() => {
-                const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
-                
-                try {
-                    const newWindow = window.open(whatsappURL, '_blank');
-                    if (!newWindow || newWindow.closed || typeof newWindow.closed == 'undefined') {
-                        window.location.href = whatsappURL;
-                    }
-                } catch (error) {
-                    window.location.href = whatsappURL;
-                }
-                
-                setTimeout(closeModal, 500);
-            }, 1000);
-        }, 600);
-    });
 }
 
 // --- 7. CARROSSEL (CORRIGIDO) ---
