@@ -12,6 +12,7 @@ html {
 
 body {
     font-family: 'Inter', sans-serif;
+    /* Gradiente de fundo */
     background: linear-gradient(180deg, #4a4a4a 0%, #d0d0d0 50%, #e8e8e8 100%);
     background-attachment: fixed;
     color: #2a2a2a;
@@ -149,7 +150,6 @@ body {
 
 .text {
     color: black;
-    
 }
 
 .hero-content p {
@@ -196,7 +196,8 @@ body {
     margin: 0 auto;
     padding: 0 20px;
     background: transparent;
-    min-height: 100vh;
+    /* min-height: 100vh; <- Removendo ou ajustando isso se necessário para evitar empurrar o footer */
+    min-height: auto;
     box-shadow: none;
     display: flex;
     flex-direction: column;
@@ -264,7 +265,7 @@ header {
 
 /* Seção de Contato minimalista */
 .contact-section {
-    padding: 2rem 0;
+    padding: 1rem 0 0.5rem 0;
     text-align: center;
     background: transparent;
     width: 100%;
@@ -825,7 +826,10 @@ header {
     animation: slideInRight 0.8s ease-out 0.9s both;
     width: 100%;
     max-width: 600px;
-    margin-top: 2rem;
+    /* CORREÇÃO APLICADA AQUI */
+    margin-top: 2rem; 
+    margin-bottom: 0; /* REMOVIDO: Margem inferior que estava empurrando o footer */
+    /* FIM DA CORREÇÃO */
     display: flex;
     justify-content: center;
 }
@@ -855,9 +859,11 @@ header {
 footer {
     background: #2a2a2a;
     color: white;
-    padding: 2rem 0 1rem;
+    /* CORREÇÃO APLICADA AQUI */
+    padding: 1.5rem 0 1rem;
+    margin-top: 2rem; /* REDUZIDO de 3rem para 2rem para dar um respiro */
+    /* FIM DA CORREÇÃO */
     text-align: center;
-    margin-top: 2rem;
     width: 100%;
 }
 
@@ -1102,10 +1108,8 @@ footer {
     }
 }
 
-/* Adicione no final do seu CSS */
-
+/* Ajuste para Tablets e PC */
 @media (min-width: 768px) {
-    /* Ajuste para Tablets e PC */
     .service-card {
         /* Em telas maiores, mostra 3 cards (aprox 30% cada) */
         flex: 0 0 30%; 
