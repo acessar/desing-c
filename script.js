@@ -42,30 +42,69 @@ window.addEventListener('scroll', function() {
     }
 });
 
-// --- 4. SCROLL PARA FORMULÁRIO HUBSPOT ---
-function scrollToHubSpotForm() {
-    const hubspotForm = document.getElementById('hubspot-form-container');
-    if (hubspotForm) {
-        hubspotForm.scrollIntoView({
-            behavior: 'smooth',
-            block: 'center'
-        });
+// --- 4. ABRIR CHATBOT ---
+function openChatbot() {
+    // Usa a API do Chatling para abrir o chatbot
+    if (window.Chatling && typeof window.Chatling.open === 'function') {
+        window.Chatling.open();
+    } else {
+        // Se o Chatling ainda não estiver carregado, aguarda e tenta novamente
+        const checkChatling = setInterval(() => {
+            if (window.Chatling && typeof window.Chatling.open === 'function') {
+                window.Chatling.open();
+                clearInterval(checkChatling);
+            }
+        }, 100);
+        
+        // Para de tentar após 5 segundos
+        setTimeout(() => {
+            clearInterval(checkChatling);
+        }, 5000);
     }
 }
 
 // --- 7. CARROSSEL (CORRIGIDO) ---
+// Estrutura dos Cards (apenas no código, não visível no site):
+// - Card 1: id="card-1" data-card-number="1" - Cortes Sociais
+// - Card 2: id="card-2" data-card-number="2" - Defina seu estilo
+// - Card 3: id="card-3" data-card-number="3" - Barbeoterapia
+// - Card 4: id="card-4" data-card-number="4" - Produtos
 document.addEventListener('DOMContentLoaded', function() {
     const carousel = document.getElementById('servicesCarousel');
     
     // Se não houver carrossel na página, encerra a função
     if (!carousel) return;
 
-    // >>> CORREÇÃO PRINCIPAL: Forçar o início no zero <<<
-    carousel.scrollLeft = 0;
-
     let currentIndex = 0;
     const cards = carousel.querySelectorAll('.service-card');
     const totalCards = cards.length;
+    
+    // Funções auxiliares para manipular cards específicos
+    // Exemplo: getCardByNumber(1) retorna o elemento do Card 1
+    function getCardByNumber(cardNumber) {
+        return document.getElementById(`card-${cardNumber}`) || 
+               carousel.querySelector(`[data-card-number="${cardNumber}"]`);
+    }
+    
+    // Retorna o número do card a partir do elemento
+    function getCardNumber(cardElement) {
+        return cardElement.getAttribute('data-card-number') || 
+               cardElement.id.replace('card-', '');
+    }
+    
+    // Centralizar o primeiro card ao carregar
+    function centerFirstCard() {
+        if (cards.length > 0) {
+            // Com o espaçador, o primeiro card já está posicionado corretamente
+            // Apenas garante que o scroll está no início
+            carousel.scrollLeft = 0;
+        }
+    }
+    
+    // Aguardar o carregamento completo antes de centralizar
+    setTimeout(() => {
+        centerFirstCard();
+    }, 100);
     let isScrolling = false;
     let autoScrollInterval;
     
@@ -86,12 +125,13 @@ document.addEventListener('DOMContentLoaded', function() {
         
         const card = cards[index];
         const cardWidth = card.offsetWidth;
+        const carouselWidth = carousel.offsetWidth;
         
-        // Cálculo para centralizar ou focar o card
-        const scrollPosition = card.offsetLeft - (carousel.offsetWidth - cardWidth) / 2;
+        // Cálculo para centralizar o card considerando o espaçador
+        const scrollPosition = card.offsetLeft - (carouselWidth - cardWidth) / 2;
         
         carousel.scrollTo({
-            left: scrollPosition,
+            left: Math.max(0, scrollPosition),
             behavior: 'smooth'
         });
         
@@ -216,7 +256,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Inicialização final do carrossel
     setTimeout(() => {
-        carousel.scrollLeft = 0; // Garante mais uma vez que começa do início
+        centerFirstCard(); // Centraliza o primeiro card
         startAutoScroll();
     }, 1000);
 });

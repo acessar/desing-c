@@ -414,11 +414,18 @@ header {
     scrollbar-width: none;
     -ms-overflow-style: none;
     padding: 0.5rem 0;
-    padding-left: 7.5%;
+    padding-left: 0;
     cursor: grab;
     user-select: none;
     width: 100%; 
     min-width: 0;
+    justify-content: flex-start;
+}
+
+.carousel-spacer {
+    flex: 0 0 calc((100% - 85%) / 2);
+    min-width: 0;
+    scroll-snap-align: none;
 }
 .services-carousel:active {
     cursor: grabbing;
@@ -430,11 +437,12 @@ header {
 
 .service-card {
     flex: 0 0 85%;
-    scroll-snap-align: start;
+    scroll-snap-align: center;
     cursor: pointer;
     transition: transform 0.3s ease;
     user-select: none;
     -webkit-user-drag: none;
+    margin: 0 auto;
 }
 
 .service-card:active {
@@ -1228,5 +1236,11 @@ footer {
         /* Centraliza os cards no PC e remove o padding lateral excessivo */
         justify-content: center; 
         padding-left: 0;
+    }
+    
+    .services-carousel-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 }
