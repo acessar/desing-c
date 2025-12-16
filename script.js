@@ -64,11 +64,6 @@ function openChatbot() {
 }
 
 // --- 7. CARROSSEL (CORRIGIDO) ---
-// Estrutura dos Cards (apenas no código, não visível no site):
-// - Card 1: id="card-1" data-card-number="1" - Cortes Sociais
-// - Card 2: id="card-2" data-card-number="2" - Defina seu estilo
-// - Card 3: id="card-3" data-card-number="3" - Barbeoterapia
-// - Card 4: id="card-4" data-card-number="4" - Produtos
 document.addEventListener('DOMContentLoaded', function() {
     const carousel = document.getElementById('servicesCarousel');
     
@@ -79,25 +74,20 @@ document.addEventListener('DOMContentLoaded', function() {
     const cards = carousel.querySelectorAll('.service-card');
     const totalCards = cards.length;
     
-    // Funções auxiliares para manipular cards específicos
-    // Exemplo: getCardByNumber(1) retorna o elemento do Card 1
-    function getCardByNumber(cardNumber) {
-        return document.getElementById(`card-${cardNumber}`) || 
-               carousel.querySelector(`[data-card-number="${cardNumber}"]`);
-    }
-    
-    // Retorna o número do card a partir do elemento
-    function getCardNumber(cardElement) {
-        return cardElement.getAttribute('data-card-number') || 
-               cardElement.id.replace('card-', '');
-    }
-    
     // Centralizar o primeiro card ao carregar
     function centerFirstCard() {
         if (cards.length > 0) {
-            // Com o espaçador, o primeiro card já está posicionado corretamente
-            // Apenas garante que o scroll está no início
-            carousel.scrollLeft = 0;
+            // Em desktop, garantir que o primeiro card apareça completamente
+            if (window.innerWidth >= 768) {
+                const firstCard = cards[0];
+                if (firstCard) {
+                    // Scroll para mostrar o primeiro card completamente
+                    carousel.scrollLeft = 0;
+                }
+            } else {
+                // Em mobile, apenas resetar o scroll
+                carousel.scrollLeft = 0;
+            }
         }
     }
     
@@ -259,6 +249,53 @@ document.addEventListener('DOMContentLoaded', function() {
         centerFirstCard(); // Centraliza o primeiro card
         startAutoScroll();
     }, 1000);
+    
+    // --- 8. BOTÕES DE NAVEGAÇÃO ---
+    const prevBtn = document.getElementById('carouselPrev');
+    const nextBtn = document.getElementById('carouselNext');
+    
+    // Função para ir ao próximo card (usando a função existente)
+    function goToNextCard() {
+        if (isDragging || isScrolling) return;
+        
+        stopAutoScroll();
+        nextCard(); // Usa a função existente que já faz o loop
+        resetAutoScroll();
+    }
+    
+    // Função para ir ao card anterior
+    function goToPrevCard() {
+        if (isDragging || isScrolling) return;
+        
+        stopAutoScroll();
+        
+        // Se estiver no primeiro card, vai para o último (loop infinito)
+        if (currentIndex === 0) {
+            currentIndex = totalCards - 1;
+        } else {
+            currentIndex = currentIndex - 1;
+        }
+        
+        scrollToCard(currentIndex);
+        resetAutoScroll();
+    }
+    
+    // Event listeners para os botões
+    if (nextBtn) {
+        nextBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            goToNextCard();
+        });
+    }
+    
+    if (prevBtn) {
+        prevBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            goToPrevCard();
+        });
+    }
 });
 
 // Smooth scroll para links internos (caso adicione menu no futuro)

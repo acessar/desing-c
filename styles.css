@@ -131,9 +131,10 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     text-align: center;
     width: 100%;
-    max-width: 100%;
+    max-width: 1200px;
     margin: 0 auto;
 }
 
@@ -250,12 +251,12 @@ body {
     margin: 0 auto;
     padding: 0 20px;
     background: transparent;
-    /* min-height: 100vh; <- Removendo ou ajustando isso se necessário para evitar empurrar o footer */
     min-height: auto;
     box-shadow: none;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     width: 100%;
     box-sizing: border-box;
 }
@@ -387,20 +388,24 @@ header {
 .services-carousel-section {
     padding: 2rem 0;
     width: 100%;
-    overflow: hidden;
+    max-width: 1200px;
+    overflow: visible;
     background: transparent;
     display: flex;
     justify-content: center;
     align-items: center;
     margin: 0 auto;
+    position: relative;
 }
 
 .services-carousel-container {
     width: 100%;
-    padding: 0 0.5rem;
+    padding: 0;
     max-width: 100%;
     margin: 0 auto;
-    display: block; 
+    display: block;
+    position: relative;
+    z-index: 1;
 }
 
 .services-carousel {
@@ -443,10 +448,92 @@ header {
     user-select: none;
     -webkit-user-drag: none;
     margin: 0 auto;
+    position: relative;
 }
 
 .service-card:active {
     transform: scale(0.98);
+}
+
+/* Card Number */
+.card-number {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 50%, #1a1a1a 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+    z-index: 10;
+    box-shadow: 
+        inset 0 1px 2px rgba(255, 255, 255, 0.1),
+        0 2px 10px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    transition: all 0.3s ease;
+}
+
+.service-card:hover .card-number {
+    transform: scale(1.1);
+    box-shadow: 
+        inset 0 1px 2px rgba(255, 255, 255, 0.15),
+        0 4px 15px rgba(0, 0, 0, 0.4);
+    border-color: rgba(255, 255, 255, 0.25);
+}
+
+/* Estilos específicos para cada card */
+.card-1 {
+    order: 1;
+}
+
+.card-1 .service-card-image {
+    border: 2px solid rgba(42, 42, 42, 0.3);
+}
+
+.card-1:hover {
+    transform: translateY(-5px);
+}
+
+.card-2 {
+    order: 2;
+}
+
+.card-2 .service-card-image {
+    border: 2px solid rgba(42, 42, 42, 0.3);
+}
+
+.card-2:hover {
+    transform: translateY(-5px) scale(1.02);
+}
+
+.card-3 {
+    order: 3;
+}
+
+.card-3 .service-card-image {
+    border: 2px solid rgba(42, 42, 42, 0.3);
+}
+
+.card-3:hover {
+    transform: translateY(-5px) rotate(1deg);
+}
+
+.card-4 {
+    order: 4;
+}
+
+.card-4 .service-card-image {
+    border: 2px solid rgba(42, 42, 42, 0.3);
+}
+
+.card-4:hover {
+    transform: translateY(-5px) rotate(-1deg);
 }
 
 .service-card-image {
@@ -497,6 +584,92 @@ header {
     color: rgba(255, 255, 255, 0.9);
     font-weight: 300;
     text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Botões de Navegação do Carrossel */
+.carousel-nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 50%, #1a1a1a 100%);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 900;
+    transition: all 0.3s ease;
+    box-shadow: 
+        inset 0 1px 2px rgba(255, 255, 255, 0.1),
+        0 2px 10px rgba(0, 0, 0, 0.3);
+    color: white;
+    opacity: 0.9;
+}
+
+.carousel-nav-btn:hover {
+    opacity: 1;
+    transform: translateY(-50%) scale(1.1);
+    box-shadow: 
+        inset 0 1px 2px rgba(255, 255, 255, 0.15),
+        0 4px 15px rgba(0, 0, 0, 0.4);
+    border-color: rgba(255, 255, 255, 0.25);
+}
+
+.carousel-nav-btn:active {
+    transform: translateY(-50%) scale(0.95);
+}
+
+.carousel-nav-btn svg {
+    width: 24px;
+    height: 24px;
+    stroke: white;
+    filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.3));
+}
+
+.carousel-nav-btn:hover svg {
+    filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.5));
+}
+
+.carousel-nav-prev {
+    left: -50px;
+}
+
+.carousel-nav-next {
+    right: -50px;
+}
+
+@media (min-width: 768px) {
+    .carousel-nav-prev {
+        left: -65px;
+    }
+    
+    .carousel-nav-next {
+        right: -65px;
+    }
+}
+
+/* Ajustar botões em mobile */
+@media (max-width: 767px) {
+    .carousel-nav-btn {
+        width: 44px;
+        height: 44px;
+    }
+    
+    .carousel-nav-btn svg {
+        width: 20px;
+        height: 20px;
+    }
+    
+    .carousel-nav-prev {
+        left: 10px;
+    }
+    
+    .carousel-nav-next {
+        right: 10px;
+    }
 }
 
 /* Botões Black Premium */
@@ -1071,6 +1244,13 @@ footer {
     
     .services-carousel-section {
         padding: 1.5rem 0;
+        width: 100%;
+        max-width: 100%;
+    }
+    
+    .hero-content {
+        padding: 2rem 1rem;
+        max-width: 100%;
     }
     
     .service-card {
@@ -1181,6 +1361,13 @@ footer {
     
     .services-carousel-section {
         padding: 1rem 0;
+        width: 100%;
+        max-width: 100%;
+    }
+    
+    .hero-content {
+        padding: 1.5rem 1rem;
+        max-width: 100%;
     }
     
     .service-card {
@@ -1234,13 +1421,88 @@ footer {
     
     .services-carousel {
         /* Centraliza os cards no PC e remove o padding lateral excessivo */
-        justify-content: center; 
-        padding-left: 0;
+        justify-content: flex-start; 
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+    
+    .services-carousel-section {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding-left: 20px;
+        padding-right: 20px;
+        width: 100%;
+    }
+    
+    .hero-content {
+        max-width: 1200px;
+        padding-left: 20px;
+        padding-right: 20px;
     }
     
     .services-carousel-container {
         display: flex;
         justify-content: center;
         align-items: center;
+        max-width: 100%;
+        margin: 0 auto;
+        padding: 0;
+        position: relative;
+        width: 100%;
+        overflow: visible;
+    }
+    
+    .services-carousel {
+        padding-left: 80px;
+        padding-right: 80px;
+    }
+    
+    .carousel-nav-prev {
+        left: -70px;
+    }
+    
+    .carousel-nav-next {
+        right: -70px;
+    }
+    
+    .carousel-nav-btn {
+        display: flex !important;
+    }
+    
+    /* Garantir que o primeiro card apareça completamente */
+    .carousel-spacer:first-child {
+        display: none;
+    }
+    
+    .card-1 {
+        /* Primeiro card visível completamente */
+        scroll-snap-align: start;
+        margin-left: 0;
+    }
+    
+    /* Ajustar tamanho dos números nos cards em desktop */
+    .card-number {
+        width: 60px;
+        height: 60px;
+        font-size: 1.4rem;
+        top: 1.5rem;
+        right: 1.5rem;
+    }
+    
+    /* Estilos específicos para desktop */
+    .card-1 .service-card-image {
+        box-shadow: 0 6px 25px rgba(0, 0, 0, 0.2);
+    }
+    
+    .card-2 .service-card-image {
+        box-shadow: 0 6px 25px rgba(0, 0, 0, 0.2);
+    }
+    
+    .card-3 .service-card-image {
+        box-shadow: 0 6px 25px rgba(0, 0, 0, 0.2);
+    }
+    
+    .card-4 .service-card-image {
+        box-shadow: 0 6px 25px rgba(0, 0, 0, 0.2);
     }
 }

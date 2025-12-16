@@ -23,7 +23,7 @@
     <section class="hero-banner">
         <div class="hero-content">
             <div class="logo-container">
-                <img src="https://i.postimg.cc/NMR1ZRyN/Icarus.jpg" alt="Style Men Logo">
+                <img src="logo.jpg" alt="Style Men Logo">
             </div>
 
             <p>Moda Masculina de Qualidade</p>
@@ -82,12 +82,19 @@
         <!-- Carrossel de Serviços -->
         <section class="services-carousel-section">
             <div class="services-carousel-container">
+                <!-- Botão Anterior -->
+                <button class="carousel-nav-btn carousel-nav-prev" id="carouselPrev" aria-label="Card anterior">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                    </svg>
+                </button>
+
                 <div class="services-carousel" id="servicesCarousel">
                     <!-- Espaçador invisível no início -->
                     <div class="carousel-spacer"></div>
 
-                    <!-- Card 1: Cortes Sociais -->
-                    <div class="service-card" id="card-1" data-card-number="1" onclick="openChatbot()">
+                    <div class="service-card card-1" onclick="openChatbot()">
                         <div class="service-card-image" style="background-image: url('corte.png');">
                             <div class="service-card-overlay"></div>
                             <div class="service-card-content">
@@ -97,9 +104,8 @@
                         </div>
                     </div>
 
-                    <!-- Card 2: Defina seu estilo -->
-                    <div class="service-card" id="card-2" data-card-number="2" onclick="openChatbot()">
-                        <div class="service-card-image" style="background-image: url('neutro.jpg');">
+                    <div class="service-card card-2" onclick="openChatbot()">
+                        <div class="service-card-image" style="background-image: url('barba.png');">
                             <div class="service-card-overlay"></div>
                             <div class="service-card-content">
                                 <h3 class="service-card-title">Defina seu estilo</h3>
@@ -108,9 +114,8 @@
                         </div>
                     </div>
 
-                    <!-- Card 3: Barbeoterapia -->
-                    <div class="service-card" id="card-3" data-card-number="3" onclick="openChatbot()">
-                        <div class="service-card-image" style="background-image: url('neutrocalca.jpg');">
+                    <div class="service-card card-3" onclick="openChatbot()">
+                        <div class="service-card-image" style="background-image: url('terapia.png');">
                             <div class="service-card-overlay"></div>
                             <div class="service-card-content">
                                 <h3 class="service-card-title">Barbeoterapia</h3>
@@ -119,9 +124,8 @@
                         </div>
                     </div>
 
-                    <!-- Card 4: Produtos -->
-                    <div class="service-card" id="card-4" data-card-number="4" onclick="openChatbot()">
-                        <div class="service-card-image" style="background-image: url('objeto.jpg');">
+                    <div class="service-card card-4" onclick="openChatbot()">
+                        <div class="service-card-image" style="background-image: url('produtos.png');">
                             <div class="service-card-overlay"></div>
                             <div class="service-card-content">
                                 <h3 class="service-card-title">Produtos</h3>
@@ -134,6 +138,14 @@
                     <div class="carousel-spacer"></div>
 
                 </div>
+
+                <!-- Botão Próximo -->
+                <button class="carousel-nav-btn carousel-nav-next" id="carouselNext" aria-label="Próximo card">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                    </svg>
+                </button>
             </div>
         </section>
 
@@ -151,7 +163,7 @@
             <div class="footer-bottom">
                 <p>&copy; 2025 Icarus - Moda Masculina. Todos os direitos reservados.
                 <p class="text-footer"> Crie seu serviço on-line com a <a
-                        href="http://acessar.github.io/dezaincode.com.br" target="_blank">Dezaincode</a></p>
+                        href="http://acessar.github.io/dezaincode.com.br" target="_blank">Systech</a></p>
                 </p>
             </div>
         </div>
